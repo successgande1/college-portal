@@ -12,13 +12,12 @@ from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 from datetime import datetime
 from academics.models import *
-
+ 
 
 #Applicant Model
 class Applicant(models.Model):
     applicant = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
     course_name = models.ForeignKey(CourseOfStudy, on_delete=models.CASCADE, blank=True) 
-    pre_application_form = models.TextField()
     payment_status = models.BooleanField(default=False)
     admitted = models.BooleanField(default=False)
     added_date = models.DateField(auto_now_add=True)

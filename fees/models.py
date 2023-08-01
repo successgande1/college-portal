@@ -2,9 +2,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class FeeType(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
+    description = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.name
@@ -20,20 +21,5 @@ class Fee(models.Model):
         return f"{self.fee_type} - {self.amount}"
 
 
-class ApplicantFee(models.Model):
-    applicant = models.ForeignKey(User, on_delete=models.CASCADE)
-    fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
-    payment_status = models.CharField(max_length=20, blank=True)
-    payment_date = models.DateField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.applicant} - {self.fee}"
-    
-class StudentFee(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
-    fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
-    payment_status = models.CharField(max_length=20, blank=True)
-    payment_date = models.DateField(null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.student} - {self.fee}"

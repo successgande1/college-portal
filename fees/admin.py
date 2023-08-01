@@ -7,8 +7,5 @@ admin.site.register(FeeType)
 
 admin.site.register(Fee)
 
-admin.site.register(ApplicantFee)
 
-
-admin.site.register(StudentFee)
  

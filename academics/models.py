@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from accounts.models import Profile
+from fees.models import *
+
 
 #Academic Session Model
 class AcademicSession(models.Model):
@@ -27,7 +29,16 @@ class Semester(models.Model):
     
 #Level Session Model
 class Level(models.Model):
-    name = models.CharField(max_length=100)
+    LEVEL_CATEGORY = [
+        ('ND 1 ', 'ND 1'),
+        ('ND 2', 'ND 2'),
+        ('PRE-HND', 'PRE-HND'), 
+        ('HND 1', 'HND 1'), 
+        ('HND 2', 'HND 2'), 
+    ]
+    name = models.CharField(max_length=200, null=True)
+    level_type = models.CharField(max_length=20, choices=LEVEL_CATEGORY, default=None, blank=True, null=True)
+    fee = models.ForeignKey(Fee, on_delete=models.CASCADE)
     added_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -56,6 +67,7 @@ class Department(models.Model):
 class CourseOfStudy(models.Model):
     name = models.CharField(max_length=100)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE)
     added_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -75,13 +87,15 @@ class CourseUnit(models.Model):
     def __str__(self):
         return self.name
     
+    
 
 # Students model
 class Student(models.Model):
     candidate = models.OneToOneField(Profile, on_delete=models.CASCADE)
     academic_session = models.ForeignKey(AcademicSession, on_delete=models.CASCADE)
-    level = models.IntegerField(default=100)
+    course = models.ForeignKey(CourseOfStudy, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE)
     graduated = models.BooleanField(default=False)
     added_date = models.DateField(auto_now_add=True)
 
@@ -125,3 +139,5 @@ class CourseCarryover(models.Model):
     
     def __str__(self):
         return f"{self.student} - {self.course_unit} - Carryover from {self.previous_semester}"
+
+

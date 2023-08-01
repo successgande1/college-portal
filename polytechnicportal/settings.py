@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'results.apps.ResultsConfig',
     'fees.apps.FeesConfig',
     'crispy_forms',
+    "crispy_bootstrap4",
     'django_humanize',
     'imagekit',
 ]
@@ -112,7 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -155,6 +158,6 @@ MESSAGE_TAGS = {
 
 #LOGIN_REDIRECT_URL = 'account-dashboard'
 
-#LOGIN_URL = 'user-login'
+LOGIN_URL = 'user-login'
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']

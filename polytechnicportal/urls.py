@@ -22,6 +22,7 @@ from accounts.views import custom_page_not_found
 urlpatterns = [ 
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
+    path('', include('admission.urls')),
     path('404/', custom_page_not_found, name='custom_404'),
 ]+ static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
